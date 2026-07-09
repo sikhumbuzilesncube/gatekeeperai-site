@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gatekeeper AI | Constituent Message Triage for MPs</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #1a1a1a; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: #0f172a; color: white; padding: 60px 0; text-align: center; }
+        h1 { font-size: 2.8rem; margin-bottom: 15px; }
+        .tagline { font-size: 1.3rem; opacity: 0.9; margin-bottom: 30px; }
+        .btn { background: #2563eb; color: white; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block; }
+        .features { padding: 80px 0; background: #f8fafc; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card h3 { margin-bottom: 10px; font-size: 1.4rem; }
+        .red { color: #dc2626; font-weight: 700; }
+        .yellow { color: #d97706; font-weight: 700; }
+        .green { color: #16a34a; font-weight: 700; }
+        .demo { padding: 80px 0; text-align: center; }
+        .demo-box { background: #1e293b; color: #e2e8f0; padding: 30px; border-radius: 12px; text-align: left; font-family: monospace; margin: 30px auto; max-width: 600px; }
+        footer { background: #0f172a; color: #94a3b8; padding: 40px 0; text-align: center; }
+        @media (max-width: 768px) { h1 { font-size: 2rem; } .tagline { font-size: 1.1rem; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Gatekeeper AI</h1>
+            <p class="tagline">Stop drowning in WhatsApp. See constituent crises first.</p>
+            <a href="#demo" class="btn">See Live Demo</a>
+        </div>
+    </header>
+    <section class="features">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 10px;">Built for Zimbabwean MPs</h2>
+            <p style="text-align: center; color: #64748b; font-size: 1.1rem;">Your team gets 200+ messages/day. We show you the 5 that matter.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="red">RED ALERTS</span></h3>
+                    <p>Urgent crises like "No water in Makokoba" or "Child collapsed at school". Get SMS + WhatsApp push in 10 seconds.</p>
+                </div>
+                <div class="card">
+                    <h3><span class="yellow">YELLOW FLAGS</span></h3>
+                    <p>Complaints and service failures. "Roads not fixed" or "Clinic has no meds". Batched for daily review.</p>
+                </div>
+                <div class="card">
+                    <h3><span class="green">GREEN IDEAS</span></h3>
+                    <p>Community suggestions and thanks. "Build playground" or "Thank you for borehole". Weekly digest.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="demo" id="demo">
+        <div class="container">
+            <h2 style="font-size: 2.2rem; margin-bottom: 20px;">How It Works</h2>
+            <p style="color: #64748b; font-size: 1.1rem; margin-bottom: 20px;">Constituent texts your keyword. AI triages. You act.</p>
+            <div class="demo-box">
+                Constituent: "BAJILA urgent water pipe burst Makokoba" <br><br>
+                → Gatekeeper AI: <span class="red">[RED]</span> Crisis detected <br>
+                → SMS to Hon. Bajila: "RED: Water crisis Makokoba. 3 days no water." <br>
+                → Logged to secure dashboard <br>
+            </div>
+            <p style="margin-top: 40px;"><strong>Live Backend:</strong> <a href="https://gatekeeper-ai-p6f7.onrender.com" target="_blank">gatekeeper-ai-p6f7.onrender.com</a></p>
+            <a href="mailto:hello@gatekeeperai.co.zw" class="btn" style="margin-top: 20px;">Request Pilot Access</a>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p><strong>Gatekeeper AI</strong> | Built in Bulawayo, Zimbabwe</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">Pilot program for Bulawayo MPs now open. $50/month after 30-day trial.</p>
+        </div>
+    </footer>
+</body>
+  </html>
