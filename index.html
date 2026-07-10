@@ -3,75 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gatekeeper AI | Constituent Message Triage for MPs</title>
+    <title>Gatekeeper AI | Stop Drowning in WhatsApp. See Critical Service Issues First.</title>
+    <meta name="description" content="AI triage for Zimbabwe's public servants. RED alerts for crises, YELLOW for complaints, GREEN for ideas. 10-second classification. Used by councils & MPs.">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #1a1a1a; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        header { background: #0f172a; color: white; padding: 60px 0; text-align: center; }
-        h1 { font-size: 2.8rem; margin-bottom: 15px; }
-        .tagline { font-size: 1.3rem; opacity: 0.9; margin-bottom: 30px; }
-        .btn { background: #2563eb; color: white; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block; }
-        .features { padding: 80px 0; background: #f8fafc; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .card h3 { margin-bottom: 10px; font-size: 1.4rem; }
-        .red { color: #dc2626; font-weight: 700; }
-        .yellow { color: #d97706; font-weight: 700; }
-        .green { color: #16a34a; font-weight: 700; }
-        .demo { padding: 80px 0; text-align: center; }
-        .demo-box { background: #1e293b; color: #e2e8f0; padding: 30px; border-radius: 12px; text-align: left; font-family: monospace; margin: 30px auto; max-width: 600px; }
-        footer { background: #0f172a; color: #94a3b8; padding: 40px 0; text-align: center; }
-        @media (max-width: 768px) { h1 { font-size: 2rem; } .tagline { font-size: 1.1rem; } }
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0A0A0A;
+            color: #FFFFFF;
+            line-height: 1.6;
+        }
+        .container {max-width: 1200px; margin: 0 auto; padding: 0 20px;}
+        header {padding: 20px 0; border-bottom: 1px solid #222;}
+        .logo {font-size: 24px; font-weight: 800; color: #FFD700;}
+        .logo span {color: #FFF;}
+        .hero {padding: 100px 0 60px; text-align: center;}
+        .hero h1 {
+            font-size: 52px; 
+            font-weight: 900; 
+            line-height: 1.1; 
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #FFD700, #FFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {font-size: 20px; color: #AAA; max-width: 700px; margin: 0 auto 40px;}
+        .btn {
+            display: inline-block;
+            background: #FFD700;
+            color: #000;
+            padding: 16px 32px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            transition: 0.2s;
+        }
+        .btn:hover {transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,215,0,0.3);}
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #FFD700;
+            color: #FFD700;
+            margin-left: 15px;
+        }
+        .section {padding: 80px 0;}
+        .section h2 {font-size: 36px; text-align: center; margin-bottom: 60px;}
+        .cards {display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;}
+        .card {
+            background: #111;
+            border: 1px solid #222;
+            padding: 30px;
+            border-radius: 12px;
+        }
+        .card h3 {font-size: 24px; margin-bottom: 15px;}
+        .card-red h3 {color: #FF4444;}
+        .card-yellow h3 {color: #FFD700;}
+        .card-green h3 {color: #44FF44;}
+        .card p {color: #AAA;}
+        .how-it-works {background: #0D0D0D;}
+        .steps {display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; text-align: center;}
+        .step-num {
+            width: 60px; height: 60px; 
+            background: #FFD700; color: #000; 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; font-weight: 800; margin: 0 auto 20px;
+        }
+        .for-who {background: #000;}
+        .clients {display: grid; grid-template-columns: 1fr 1fr; gap: 40px;}
+        .client-box {background: #111; padding: 40px; border-radius: 12px; border-left: 4px solid #FFD700;}
+        .client-box h3 {font-size: 28px; margin-bottom: 20px;}
+        .client-box ul {list-style: none;}
+        .client-box li {padding: 8px 0; color: #AAA;}
+        .client-box li:before {content: "✓"; color: #FFD700; margin-right: 10px;}
+        footer {padding: 40px 0; border-top: 1px solid #222; text-align: center; color: #666;}
+        @media (max-width: 768px) {
+            .hero h1 {font-size: 36px;}
+            .clients {grid-template-columns: 1fr;}
+            .btn-outline {margin-left: 0; margin-top: 15px; display: block;}
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>Gatekeeper AI</h1>
-            <p class="tagline">Stop drowning in WhatsApp. See constituent crises first.</p>
-            <a href="#demo" class="btn">See Live Demo</a>
+            <div class="logo">GATEKEEPER<span>AI</span></div>
         </div>
     </header>
-    <section class="features">
+
+    <section class="hero">
         <div class="container">
-            <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 10px;">Built for Zimbabwean MPs</h2>
-            <p style="text-align: center; color: #64748b; font-size: 1.1rem;">Your team gets 200+ messages/day. We show you the 5 that matter.</p>
-            <div class="grid">
-                <div class="card">
-                    <h3><span class="red">RED ALERTS</span></h3>
-                    <p>Urgent crises like "No water in Makokoba" or "Child collapsed at school". Get SMS + WhatsApp push in 10 seconds.</p>
+            <h1>Stop Drowning in WhatsApp.<br>See Critical Service Issues First.</h1>
+            <p>Gatekeeper AI reads every citizen message in 10 seconds. RED alerts for crises like "no water" or "clinic out of ARVs" go straight to duty officers. YELLOW complaints get batched. GREEN ideas get logged. Built for Zimbabwe's public servants.</p>
+            <a href="mailto:sikhumbuzile@example.com?subject=BCC%20Pilot%20Request" class="btn">Request Free Pilot</a>
+            <a href="#how" class="btn btn-outline">See How It Works</a>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>One Inbox. Three Priorities. Zero Noise.</h2>
+            <div class="cards">
+                <div class="card card-red">
+                    <h3>🔴 RED ALERTS</h3>
+                    <p><strong>Life-threatening crises.</strong> "No water 3 days", "Clinic out of ARVs", "Child collapsed". SMS + WhatsApp push to Duty Officer in 10 seconds. Tracked until resolved.</p>
                 </div>
-                <div class="card">
-                    <h3><span class="yellow">YELLOW FLAGS</span></h3>
-                    <p>Complaints and service failures. "Roads not fixed" or "Clinic has no meds". Batched for daily review.</p>
+                <div class="card card-yellow">
+                    <h3>🟡 YELLOW FLAGS</h3>
+                    <p><strong>Service failures.</strong> "Roads not fixed", "Garbage not collected", "Rude staff". Batched into daily report. No more midnight pings.</p>
                 </div>
-                <div class="card">
-                    <h3><span class="green">GREEN IDEAS</span></h3>
-                    <p>Community suggestions and thanks. "Build playground" or "Thank you for borehole". Weekly digest.</p>
+                <div class="card card-green">
+                    <h3>🟢 GREEN IDEAS</h3>
+                    <p><strong>Suggestions + thanks.</strong> "Build playground", "Thank you for borehole". Weekly digest for management. Political goodwill, captured.</p>
                 </div>
             </div>
         </div>
     </section>
-    <section class="demo" id="demo">
+
+    <section class="section how-it-works" id="how">
         <div class="container">
-            <h2 style="font-size: 2.2rem; margin-bottom: 20px;">How It Works</h2>
-            <p style="color: #64748b; font-size: 1.1rem; margin-bottom: 20px;">Constituent texts your keyword. AI triages. You act.</p>
-            <div class="demo-box">
-                Constituent: "BAJILA urgent water pipe burst Makokoba" <br><br>
-                → Gatekeeper AI: <span class="red">[RED]</span> Crisis detected <br>
-                → SMS to Hon. Bajila: "RED: Water crisis Makokoba. 3 days no water." <br>
-                → Logged to secure dashboard <br>
+            <h2>From Citizen Text to Action in 10 Seconds</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <h3>Citizen Texts</h3>
+                    <p>WhatsApp your official line: "WATER pipe burst Nketa 7"</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <h3>AI Triage</h3>
+                    <p>Gatekeeper tags RED + WATER + Nketa in 2 seconds. 24/7.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <h3>Officer Alerted</h3>
+                    <p>Duty Officer gets SMS: "RED: Pipe burst Nketa. +26377xxxxxxx"</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <h3>Tracked & Resolved</h3>
+                    <p>Dashboard logs it. Officer marks "Dispatched". Citizen gets update.</p>
+                </div>
             </div>
-            <p style="margin-top: 40px;"><strong>Live Backend:</strong> <a href="https://gatekeeper-ai-p6f7.onrender.com" target="_blank">gatekeeper-ai-p6f7.onrender.com</a></p>
-            <a href="mailto:hello@gatekeeperai.co.zw" class="btn" style="margin-top: 20px;">Request Pilot Access</a>
         </div>
     </section>
+
+    <section class="section for-who">
+        <div class="container">
+            <h2>Built for Zimbabwe's Public Service</h2>
+            <div class="clients">
+                <div class="client-box">
+                    <h3>For City Councils</h3>
+                    <ul>
+                        <li>One line: BCC-HELP, GWERU-HELP, HARARE-HELP</li>
+                        <li>AI routes to Water, Roads, Health, Housing</li>
+                        <li>Town Clerk sees response times per dept</li>
+                        <li>90% cheaper than call centers</li>
+                        <li>Shona/Ndebele/English supported</li>
+                    </ul>
+                </div>
+                <div class="client-box">
+                    <h3>For MPs & Constituency Offices</h3>
+                    <ul>
+                        <li>Private line: BAJILA, CONSTITUENCY-12</li>
+                        <li>RED = "Passport corruption", "School no teachers"</li>
+                        <li>YELLOW = Policy complaints to raise in Parliament</li>
+                        <li>Data for debates: "87 passport issues this month"</li>
+                        <li>Separated from council service issues</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero" style="padding: 60px 0;">
+        <div class="container">
+            <h2 style="font-size: 40px; margin-bottom: 20px;">Bulawayo Has 1M People.<br>Your Call Center Reaches 40/Day.</h2>
+            <p style="margin-bottom: 40px;">Free 3-month pilot for Water Department. If response time doesn't drop 50%, we leave. No cost. No risk.</p>
+            <a href="mailto:sikhumbuzile@example.com?subject=Free%20BCC%20Pilot" class="btn">Start Free Pilot</a>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
-            <p><strong>Gatekeeper AI</strong> | Built in Bulawayo, Zimbabwe</p>
-            <p style="margin-top: 10px; font-size: 0.9rem;">Pilot program for Bulawayo MPs now open. $50/month after 30-day trial.</p>
+            <p>© 2026 Gatekeeper AI. Built in Harare for Zimbabwe's public servants.</p>
+            <p>Not affiliated with Meta/WhatsApp. Uses official WhatsApp Business API.</p>
         </div>
     </footer>
 </body>
-  </html>
+                                         </html>
