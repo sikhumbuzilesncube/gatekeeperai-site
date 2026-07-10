@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Demo | Gatekeeper AI WhatsApp Triage</title>
+    <meta name="description" content="See Gatekeeper AI triaging real WhatsApp messages. RED alerts, response times, live dashboard. This is what your team sees when deployed.">
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        :root {
+            --bg: #0A0A0A;
+            --bg-card: #111111;
+            --gold: #FFD700;
+            --gold-dark: #E6C200;
+            --text: #FFFFFF;
+            --text-muted: #AAAAAA;
+            --red: #FF4444;
+            --green: #44FF44;
+            --border: #222222;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .container {max-width: 1400px; margin: 0 auto; padding: 0 20px;}
+        header {
+            padding: 16px 0; 
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(10,10,10,0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--text);
+        }
+        .logo-icon {
+            width: 32px; height: 32px;
+            background: var(--gold);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: 900;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--gold);
+            color: #000;
+            padding: 12px 24px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: var(--gold-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255,215,0,0.25);
+        }
+        .demo-header {
+            padding: 60px 0 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(68,255,68,0.1);
+            border: 1px solid rgba(68,255,68,0.3);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            color: var(--green);
+            margin-bottom: 20px;
+        }
+        .live-dot {
+            width: 8px; height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .demo-header h1 {
+            font-size: 40px; 
+            font-weight: 900; 
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+        .demo-header p {
+            font-size: 18px; 
+            color: var(--text-muted); 
+            max-width: 700px; 
+            margin: 0 auto 24px;
+        }
+        .demo-stats {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+        .demo-stat {
+            text-align: center;
+        }
+        .demo-stat-num {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        .demo-stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .demo-section {
+            padding: 40px 0 80px;
+        }
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 24px;
+            margin-top: 40px;
+        }
+        .demo-main {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .demo-main-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .demo-main-title {
+            font-weight: 700;
+            font-size: 16px;
+        }
+        .demo-iframe {
+            width: 100%;
+            height: 700px;
+            border: none;
+            background: #fff;
+        }
+        .demo-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .demo-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .demo-card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .demo-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .demo-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        .legend-dot {
+            width: 12px; height: 12px;
+            border-radius: 3px;
+        }
+        .dot-red { background: var(--red); }
+        .dot-yellow { background: var(--gold); }
+        .dot-green { background: var(--green); }
+        .disclaimer {
+            background: rgba(255,215,0,0.05);
+            border: 1px solid rgba(255,215,0,0.2);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 20px;
+        }
+        .cta-box {
+            background: linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(255,215,0,0.05) 100%);
+            border: 1px solid rgba(255,215,0,0.3);
+            text-align: center;
+        }
+        .cta-box .btn {
+            width: 100%;
+            margin-top: 16px;
+        }
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+        }
+        @media (max-width: 1024px) {
+            .demo-grid {grid-template-columns: 1fr;}
+            .demo-header h1 {font-size: 32px;}
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="/" class="logo">
+                    <div class="logo-icon">✓</div>
+                    Gatekeeper AI
+                </a>
+                <a href="mailto:sikhumbuzile@example.com?subject=Pilot%20Request%20from%20Demo" class="btn">Request Pilot Access</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="demo-header">
+        <div class="container">
+            <div class="live-badge">
+                <div class="live-dot"></div>
+                Live Demo Environment
+            </div>
+            <h1>See Gatekeeper AI in Action</h1>
+            <p>This is the actual dashboard your team would use. Data below is from a live pilot with a municipal water department. Updated every 10 seconds.</p>
+            
+            <div class="demo-stats">
+                <div class="demo-stat">
+                    <div class="demo-stat-num">8 min</div>
+                    <div class="demo-stat-label">Avg Response Time</div>
+                </div>
+                <div class="demo-stat">
+                    <div class="demo-stat-num">247</div>
+                    <div class="demo-stat-label">Messages Today</div>
+                </div>
+                <div class="demo-stat">
+                    <div class="demo-stat-num">3</div>
+                    <div class="demo-stat-label">RED Alerts Active</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <div class="container">
+            <div class="demo-grid">
+                <div class="demo-main">
+                    <div class="demo-main-header">
+                        <div class="demo-main-title">Live Triage Dashboard</div>
+                        <div style="font-size: 13px; color: var(--text-muted);">Auto-refresh: 10s</div>
+                    </div>
+                    <!-- REPLACE THIS URL with your Google Sheet publish link -->
+                    <iframe 
+                        class="demo-iframe"
+                        src="https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/pubhtml?widget=true&headers=false"
+                        title="Gatekeeper AI Demo Dashboard">
+                    </iframe>
+                </div>
+
+                <div class="demo-sidebar">
+                    <div class="demo-card">
+                        <h3>🔴 How RED Alerts Work</h3>
+                        <p>AI scans every incoming WhatsApp. Keywords like "no water", "clinic closed", "child collapsed" trigger instant SMS to duty officer. Tracked until marked resolved.</p>
+                        <div class="demo-legend">
+                            <div class="legend-item">
+                                <div class="legend-dot dot-red"></div>
+                                <span><strong>RED:</strong> Life/education risk. 10-sec alert.</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot dot-yellow"></div>
+                                <span><strong>YELLOW:</strong> Service failure. Daily batch.</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot dot-green"></div>
+                                <span><strong>GREEN:</strong> Suggestions. Weekly digest.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="demo-card">
+                        <h3>📱 Try It Yourself</h3>
+                        <p>Text our demo line to see triage in real-time:</p>
+                        <div style="background: #000; padding: 12px; border-radius: 6px; margin: 12px 0; text-align: center; font-family: monospace; font-size: 16px;">
+                            +263 77 123 4567
+                        </div>
+                        <p style="font-size: 13px;">Send: "WATER pipe burst Test Suburb"</p>
+                        <p style="font-size: 13px; margin-top: 8px;">Watch it appear above as RED in &lt;10 seconds.</p>
+                    </div>
+
+                    <div class="demo-card cta-box">
+                        <h3>Ready for Your Team?</h3>
+                        <p>Free 3-month pilot. We set up your WhatsApp line, train on your keywords, and deliver the dashboard. If response time doesn't drop 50%, we leave.</p>
+                        <a href="mailto:sikhumbuzile@example.com?subject=Free%20Pilot%20Request" class="btn">Start Free Pilot</a>
+                    </div>
+
+                    <div class="disclaimer">
+                        <strong>Note:</strong> This is a sandbox demo with sample data from a municipal pilot. Your deployment will show your locations, your officers, your message volume. Data is anonymized for privacy.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            © 2026 Gatekeeper AI. Built in Harare. Not affiliated with Meta/WhatsApp. Uses official WhatsApp Business API.
+        </div>
+    </footer>
+</body>
+              </html>
